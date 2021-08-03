@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, json, render_template, jsonify, request
 from jinja2 import Template
 
 app = Flask(__name__)
@@ -8,12 +8,28 @@ import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
-db = client.dbjungle
+db = client.dbOlympic
 
 ## HTML을 주는 부분
 @app.route('/')
 def home():
    return render_template('index.html')
+
+@app.route('/join', methods=['POST'])
+def joinCheck():
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
+
+    if id_receive == '':
+        return jsonify({'result': 'blank'})
+
+    is_id_in_db = db.users.find_one({'id': id_receive})
+    if is_id_in_db == None:
+        new_user = {'id': id_receive, 'password': pw_receive}
+        db.users.insert_one(new_user)
+        return jsonify({'result': 'success'})
+    else:
+        return jsonify({'result': 'same'})
 
 @app.route('/memo', methods=['GET'])
 def listing():

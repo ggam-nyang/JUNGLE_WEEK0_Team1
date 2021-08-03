@@ -73,7 +73,7 @@
                     <div class="join-container">
                         <div class="field">
                             <p class="control has-icons-left has-icons-right">
-                            <input class="input" type="id" placeholder="ID">
+                            <input id="join-id-input" class="input" type="id" placeholder="ID">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="field">
                             <p class="control has-icons-left">
-                            <input class="input" type="password" placeholder="Password">
+                            <input id="join-pw-input" class="input" type="password" placeholder="Password">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-lock"></i>
                             </span>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="field">
                             <p class="control">
-                            <button class="button is-success">
+                            <button class="button is-success" onclick="postJoin()">
                                 가입하기
                             </button>
                             </p>
@@ -191,5 +191,6 @@
         </div>
     </div>
 </body>
+<!-- JS 연결 -->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </html>

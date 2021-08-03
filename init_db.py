@@ -19,7 +19,7 @@ def init_items():
 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'}
-        
+
         data = requests.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[i] + '&isKorean=Y', headers=headers)
 
         data.encoding = 'utf-8'
@@ -48,7 +48,7 @@ def init_items():
         'matchResult': 0,
     }
 
-        db.dbPlan.insert_one(doc) 
+        db.dbPlan.insert_one(doc)
         # print('완료!')
 
 

@@ -1,4 +1,4 @@
-from flask import Flask, json, render_template, jsonify, request
+from flask import Flask, json, render_template, jsonify, request, url_for, session, redirect
 from jinja2 import Template
 
 app = Flask(__name__)
@@ -10,12 +10,44 @@ client = MongoClient('localhost', 27017)
 db = client.dbOlympic
 
 
+app.secret_key = 'asfewagwalkg-wlnefwelknfew'
+
+# @app.route('/')
+# def home():
+#     if "userID" in session:
+#         return render_template('index.html', username = session.get('userID'),login=True)
+#     else:
+#         return render_template('index.html', login=False)
+
+# ID = 'Hello'
+# PW = 'WORLD'
+# @app.route('/login', methods = ['GET'])
+# def login():
+#     _id_ = request.args.get("loginId")
+#     _password_ = request.args.get("loginPw")
+
+#     if ID == _id_ and _password_ == PW:
+#         session("userID") = _id_
+#         redirect(url_for('index'))
+#     else:
+#         redirect(url_for('index'))
+
+# @app.route('/logout')
+# def logout():
+#     session.pop("userID")
+#     return redirect(url_for("home"))
+
+
+
 ## HTML을 주는 부분
 @app.route('/')
 def home():
     list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", "레슬링", "배구", "배드민턴", "복싱", "사격", "사이클", "서핑", "수영", "스케이딩 보딩", "스포츠 클라이밍", "승마",
  "야구 / 소프트볼", "양궁", "역도", "요트", "유도", "육상", "조정", "체조", "축구", "카누", "탁구", "태권도", "테니스", "트라이애슬론", "펜싱", "하키", "핸드볼"]
-    return render_template('index.html',sportlist=list_OlympicItemKor)
+    if 'userID' in session:
+        return render_template('index.html', sportlist=list_OlympicItemKor, username = session.get('userID'), login=True)
+    else:
+        return render_template('index.html', sportlist=list_OlympicItemKor, login=False)
 
 ## 회원가입 체크
 @app.route('/join', methods=['POST'])
@@ -48,7 +80,15 @@ def loginCheck():
         if is_id_in_db['password'] != input_pw:
             return jsonify({'result': 'pwError'})
         else:
-            return jsonify({'result': 'success', 'userName': input_id})
+            session["userID"] = input_id
+            return redirect(url_for('home'))
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('userID')
+    return redirect(url_for('home'))
+
 
 ## 종목 리스트 가져오기
 @app.route('/sport', methods=['GET'])
@@ -58,20 +98,6 @@ def sportlist():
     # sportlist = list(db.plan.find({},{'_id':0,'name': 1}))
 
     return jsonify({'result':'success','list':list_OlympicItemKor})
-
-@app.route('/memo', methods=['GET'])
-def listing():
-    # 1. 모든 document 찾기 & _id 값은 출력에서 제외하기
-    # 2. articles라는 키 값으로 영화정보 내려주기
-    return jsonify({'result':'success', 'msg':'GET 연결되었습니다!'})
-
-## API 역할을 하는 부분
-@app.route('/memo', methods=['POST'])
-def saving():
-		# 1. 클라이언트로부터 데이터를 받기
-		# 2. meta tag를 스크래핑하기
-		# 3. mongoDB에 데이터 넣기
-    return jsonify({'result': 'success', 'msg':'POST 연결되었습니다!'})
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

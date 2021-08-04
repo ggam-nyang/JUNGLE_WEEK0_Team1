@@ -27,6 +27,7 @@
                 타이틀
             </div>
             <!-- 로그인 Form -->
+            {% if login == False %}
             <div id="login-container" class="block" style="height: 150px; border: 1px black solid;">
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
@@ -51,21 +52,43 @@
                 <div class="login-buttons">
                     <div class="field" style="float: right;">
                         <p class="control">
-                        <button class="button is-success" id="login-button">
+                        <button class="button is-success" id="login-button" onclick="loginTry()">
                             로그인
                         </button>
                         </p>
                     </div>
                     <div id="join-button" class="field" style="float: right; margin-right: 10px;">
                         <p class="control">
-                        <button class="button is-success modal-button" data-target="membership-modal" aria-haspopup="true">
+                        <button class="button is-success modal-button" data-target="membership-modal" aria-haspopup="true" onclick="clickJoinButton()">
                             회원가입
                         </button>
                         </p>
                     </div>
                 </div>
             </div>
-
+            {% else %}
+            <div id="login-container" class="block" style="height: 150px; border: 1px black solid;">
+                <div class="title is-4" style="text-align: center;">
+                    {{username}}님, 환영합니다.
+                </div>
+                <div class="login-buttons">
+                    <div class="field" style="float: right;">
+                        <p class="control">
+                        <button class="button is-success" id="logout-button" onclick="logoutTry()">
+                            로그아웃
+                        </button>
+                        </p>
+                    </div>
+                    <div id="bookmark-button" class="field" style="float: right; margin-right: 10px;">
+                        <p class="control">
+                        <button class="button is-success">
+                            내 즐겨찾기
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
             <!-- 회원가입 창 (Modal 이용) -->
             <div id="membership-modal" class="modal">
                 <div class="modal-background"></div>

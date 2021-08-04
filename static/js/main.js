@@ -167,7 +167,7 @@ function showMyBookmark() {
         success: function(response) {
             if (response['result'] === 'success') {
 
-                let bookmarkList = response['bookmark_list']
+                let bookmarkList = response['bookmark_temp_list']
                 console.log(bookmarkList)
                 for (let i = 0; i < bookmarkList.length; i++) {
                     let date = bookmarkList[i]['date'];

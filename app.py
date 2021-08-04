@@ -82,7 +82,6 @@ def makeSchedule():
 def addBookmark():
     item_id = request.form['item_id_give']
     is_bookmark_in_db = db.users.find_one({'id': session['userID'], 'bookmark': {'$in': [item_id]}})
-    print(is_bookmark_in_db)
     if is_bookmark_in_db == None:
         db.users.update_one(
             {'id': session['userID']},
@@ -111,7 +110,7 @@ def showBookmark():
 
 
 
-    return jsonify({'result': 'success', 'bookmark_list': temp_list, 'myBookmark_list': bookmark_list})
+    return jsonify({'result': 'success', 'bookmark_temp_list': temp_list, 'myBookmark_list': bookmark_list})
 
 
 if __name__ == '__main__':

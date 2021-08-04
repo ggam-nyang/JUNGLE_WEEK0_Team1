@@ -84,7 +84,7 @@ function makeScheduleDiv(date, time, title, matchState, entry, matchResult) {
                                 <i class="far fa-star"></i>
                             </button>
                         </th>
-                        <th>${date} ${time}</th>
+                        <th>${date} ${time}</abbr></th>
                         <td>${title}</td>
                         <td>${matchState}</td>
                         <td>${entry}</td>

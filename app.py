@@ -71,7 +71,6 @@ def logout():
 def makeSchedule():
     item_selected = request.form['item_give']
     item_schedule = list(db.dbPlan.find({'name': item_selected}, {'_id': 0}))
-    print(item_schedule)
     return jsonify({'result': 'success', 'schedule_give': item_schedule})
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@
     <div class="columns">
         <div class="column is-2">
             <div class="title" style="height: 200px; border: 1px black solid;">
-                여기는 타이틀
+                타이틀
             </div>
             <!-- 로그인 Form -->
             <div id="login-container" class="block" style="height: 150px; border: 1px black solid;">
@@ -112,21 +112,11 @@
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                    <a href="#" class="dropdown-item" onclick="sportsChange('축구')">
-                        축구
+                        {% for i in sportlist %}
+                    <a href="#" class="dropdown-item" onclick="sportsChange('{{i}}')">
+                        {{i}}
                     </a>
-                    <a class="dropdown-item">
-                        야구
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        배구
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        육상
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        핸드볼
-                    </a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

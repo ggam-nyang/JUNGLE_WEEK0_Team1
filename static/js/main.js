@@ -1,7 +1,10 @@
+// $(document).ready(function(){
+//     sportlist();
+// });
+
 // 종목 선택 Dropdown (toggle을 이용해 펼치기 / 닫기)
 let dropdown = document.querySelector('.dropdown');
 dropdown.addEventListener('click', dropFunction);
-
 
 function dropFunction(event) {
     event.stopPropagation();
@@ -170,3 +173,16 @@ function logoutTry() {
     `
     window.location.reload();
 }
+
+    //종목리스트 생성 
+    // function sportslist(){
+    //     $("#dropdown-menu").html("");
+    //     for(let i = 0; i < sportlist.length; i++){
+    //         makeDropdown(sportlist[i])            
+    //     }
+    // }
+
+    // function makeDropdown(sport){
+    //     let temphtml = `<a href="#" class="dropdown-item" onclick="sportsChange()">${sport}</a>`
+    //     $("#dropdown-menu").append(temphtml)
+    // }

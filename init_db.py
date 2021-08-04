@@ -13,7 +13,7 @@ options = webdriver.ChromeOptions()
 # 창 숨기는 옵션 추가
 options.add_argument("headless")
 
-driver = webdriver.Chrome('D:\Project\chromedriver_win32\chromedriver', options=options)
+driver = webdriver.Chrome('C:\chromedriver_win32\chromedriver', options=options)
 
 list_OlympicItem = ["KTE", "GLF", "MPN", "BSK", "RUG", "WRE", "VOL", "BDM", "BOX", "SHO", "CYC", "SRF", "AQU", "SKB", "CLB", "EQU",
  "BSB", "ARC", "WLF", "SAL", "JUD", "ATH", "ROW", "GYM", "FBL", "CAS", "TTE", "TKW", "TEN", "TRI", "FEN", "HOC", "HBL"]
@@ -30,7 +30,7 @@ def init_items():
 
     for i in range(len(list_OlympicItem)):
         id_index = 0
-        
+
         driver.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[i] + '&isKorean=Y')
         driver.implicitly_wait(5)
 
@@ -91,7 +91,7 @@ def init_items():
 
 
 def insert_all():
-    db.dbPlan.drop()  
+    db.dbPlan.drop() 
 
 
 insert_all()

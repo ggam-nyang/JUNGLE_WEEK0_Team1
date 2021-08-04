@@ -26,10 +26,41 @@ function sportsChange(item) {
         data: {item_give: item},
         success: function(response) {
             if (response['result'] === 'success') {
-                alert('연결 성공!');
+                $('#schedule-table-body').empty();
+                let schedule = response['schedule_give']
+
+                for (let i = 0; i < schedule.length; i++) {
+                    let date = schedule[i]['date'];
+                    let time = schedule[i]['time'];
+                    let title = schedule[i]['title'];
+                    let matchState = schedule[i]['matchState'];
+                    let entry = schedule[i]['entry'];
+                    let matchResult = schedule[i]['matchResult'];
+                    makeScheduleDiv(date, time, title, matchState, entry, matchResult);
+                }
             }
         }
     })
+}
+
+// 일정 div를 만드는 함수
+function makeScheduleDiv(date, time, title, matchState, entry, matchResult) {
+    let temphtml =
+    `
+    <tr>
+                        <th>
+                            <button>
+                                <i class="far fa-star"></i>
+                            </button>
+                        </th>
+                        <th>${date} ${time}</th>
+                        <td>${title}</td>
+                        <td>${matchState}</td>
+                        <td>${entry}</td>
+                        <td>${matchResult}</td>
+                      </tr>
+    `
+    $('#schedule-table-body').append(temphtml);
 }
 
 // 종목 33개 드롭다운에 뿌려주기

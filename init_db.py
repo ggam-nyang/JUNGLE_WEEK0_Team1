@@ -14,7 +14,7 @@ options = webdriver.ChromeOptions()
 options.add_argument("headless")
 
 driver = webdriver.Chrome('D:\Project\chromedriver_win32\chromedriver', options=options)
-driver.implicitly_wait(3)
+driver.implicitly_wait(5)
 
 list_OlympicItem = ["KTE", "GLF", "MPN", "BSK", "RUG", "WRE", "VOL", "BDM", "BOX", "SHO", "CYC", "SRF", "AQU", "SKB", "CLB", "EQU",
  "BSB", "ARC", "WLF", "SAL", "JUD", "ATH", "ROW", "GYM", "FBL", "CAS", "TTE", "TKW", "TEN", "TRI", "FEN", "HOC", "HBL"]
@@ -29,50 +29,59 @@ list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", 
 def init_items():
 
     # for i in range(len(list_OlympicItem)):
-
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'}
         
-        driver.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[0] + '&isKorean=Y')
+        driver.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[32] + '&isKorean=Y')
         soup = BeautifulSoup(driver.page_source, 'html.parser')
 
-        # divs = soup.select('#content > div > div > div.Schedule_game_schedule__1k6hJ > ul > li:nth-child(1) > ul > li > a')
+
+        # matchResult Data 가져오기
+        test = driver.find_elements_by_class_name("GameScheduleList_status__3zxOL")
+        # test2 = driver.find_elements_by_xpath('//*[@id="content"]/div/div[2]/div[3]/ul/li[1]/div/span')
+        # test2 = driver.find_elements_by_css_selector('#content > div > div.Schedule_main_section__1SpMt > div:nth-child(3) > ul > li.GameScheduleList_game_item__2ricE > div > span')
+        for i in test:
+            print(i.text)
         
-        print(soup)
 
-        # print(divs)
-        # html = driver.page_source
-        # soup = BeautifulSoup(html, 'html.parser')
-        # divs = soup.select('#content')
-        # data = requests.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[i] + '&isKorean=Y', headers=headers)
 
-        # data.encoding = 'utf-8'
-        # soup = BeautifulSoup(data.text, 'html.parser')
+        # Time Data 가져오기
+        # test = driver.find_elements_by_class_name("GameScheduleList_game_time__10dNy")
 
-        # divs = soup.select('#root')
-        # divs = soup.select('.Schedule_game_schedule__1k6hJ')
+        # for i in test:
+        #     print(i.text)
 
-        # for div in divs:
-        #     print(div)
 
-        # name = soup.select_one('#content > div.article > div.mv_info_area > div.mv_info.character > h3 > a').text
-        # img_url = soup.select_one('#content > div.article > div.mv_info_area > div.poster > img')['src']
-        # recent_work = soup.select_one(
-        # '#content > div.article > div.mv_info_area > div.mv_info.character > dl > dd > a:nth-child(1)').text
+        # entry Data 가져오기
+        # test = driver.find_elements_by_class_name("GameScheduleList_link_name__xBm7W")
 
-        doc = {
-        'name': 0,
-        'id': 0,
-        'date': 0,
-        'day': 0,
-        'time': 0,
-        'title': 0,
-        'matchState': 0,
-        'entry': 0,
-        'matchResult': 0,
-    }
+        # for i in test:
+        #     print(i.text)
 
-        db.dbPlan.insert_one(doc) 
+        # date Data 가져오기
+        # test = driver.find_elements_by_class_name("Schedule_date__iFiUq")
+
+        # for i in test:
+        #     print(i.text)
+
+
+        # Title Data 가져오기
+        # test = driver.find_elements_by_class_name("GameScheduleList_title__2fTpK")
+
+        # for i in test:
+        #     print(i.text)
+
+
+    #     doc = {
+    #     'name': list_OlympicItemKor[i],
+    #     'id': list_OlympicItem[i] + i,
+    #     'date': 0,
+    #     'time': 0,
+    #     'title': 0,
+    #     'matchState': 0,
+    #     'entry': 0,
+    #     'matchResult': 0,
+    # }
+
+    #     db.dbPlan.insert_one(doc) 
         # print('완료!')
 
 

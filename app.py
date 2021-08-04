@@ -1,5 +1,5 @@
 from flask import Flask, json, render_template, jsonify, request, url_for, session, redirect
-# from jinja2 import Template
+from jinja2 import Template
 
 app = Flask(__name__)
 
@@ -12,30 +12,6 @@ db = client.dbOlympic
 
 app.secret_key = 'asfewagwalkg-wlnefwelknfew'
 
-# @app.route('/')
-# def home():
-#     if "userID" in session:
-#         return render_template('index.html', username = session.get('userID'),login=True)
-#     else:
-#         return render_template('index.html', login=False)
-
-# ID = 'Hello'
-# PW = 'WORLD'
-# @app.route('/login', methods = ['GET'])
-# def login():
-#     _id_ = request.args.get("loginId")
-#     _password_ = request.args.get("loginPw")
-
-#     if ID == _id_ and _password_ == PW:
-#         session("userID") = _id_
-#         redirect(url_for('index'))
-#     else:
-#         redirect(url_for('index'))
-
-# @app.route('/logout')
-# def logout():
-#     session.pop("userID")
-#     return redirect(url_for("home"))
 
 
 
@@ -91,14 +67,11 @@ def logout():
     return jsonify({'result': 'success'})
 
 
-## 종목 리스트 가져오기
-@app.route('/sport', methods=['GET'])
-def sportlist():
-    list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", "레슬링", "배구", "배드민턴", "복싱", "사격", "사이클", "서핑", "수영", "스케이딩 보딩", "스포츠 클라이밍", "승마",
- "야구 / 소프트볼", "양궁", "역도", "요트", "유도", "육상", "조정", "체조", "축구", "카누", "탁구", "태권도", "테니스", "트라이애슬론", "펜싱", "하키", "핸드볼"]
-    # sportlist = list(db.plan.find({},{'_id':0,'name': 1}))
+@app.route('/schedule', methods=['POST'])
+def makeSchedule():
+    item_selected = request.form['item_give']
 
-    return jsonify({'result':'success','list':list_OlympicItemKor})
+    return jsonify({'result': 'success'})
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

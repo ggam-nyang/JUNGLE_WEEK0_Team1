@@ -18,6 +18,18 @@ function dropFunction(event) {
 function sportsChange(item) {
     document.getElementById('dropdown-main').textContent = item
     document.getElementById('select-item').textContent = item
+
+    // 일정을 불러와서 우측 하단에 보여주는 함수
+    $.ajax({
+        type: 'POST',
+        url: '/schedule',
+        data: {item_give: item},
+        success: function(response) {
+            if (response['result'] === 'success') {
+                alert('연결 성공!');
+            }
+        }
+    })
 }
 
 // 종목 33개 드롭다운에 뿌려주기

@@ -13,7 +13,7 @@ options = webdriver.ChromeOptions()
 # 창 숨기는 옵션 추가
 options.add_argument("headless")
 
-driver = webdriver.Chrome('D:\Project\chromedriver_win32\chromedriver', options=options)
+driver = webdriver.Chrome('C:\chromedriver_win32\chromedriver', options=options)
 # driver.implicitly_wait(5)
 
 list_OlympicItem = ["KTE", "GLF", "MPN", "BSK", "RUG", "WRE", "VOL", "BDM", "BOX", "SHO", "CYC", "SRF", "AQU", "SKB", "CLB", "EQU",
@@ -29,21 +29,21 @@ list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", 
 def init_items():
 
     # for i in range(len(list_OlympicItem)):
-        
+
         driver.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[9] + '&isKorean=Y')
         driver.implicitly_wait(5)
-        
+
         # soup = BeautifulSoup(driver.page_source, 'html.parser')
 
 
         # matchResult Data 가져오기
 
         # test = driver.find_elements_by_class_name("GameScheduleList_status__3zxOL")
-        
+
         # for i in test:
         #     # print(i.text) # 해당 텍스트를 가져옴
         #     print(i.tag_name) # 해당 태그를 가져옴
-            
+
 
 
         # Time Data 가져오기
@@ -104,8 +104,9 @@ def init_items():
                 print(matchStates[i].text)
                 
                 ulHtml = matchResults[i]
-                soupResult = BeautifulSoup(ulHtml.text, 'html.parser')
-                entrys = soupResult.select_one('.GameScheduleList_link_name__xBm7W').text
+                # print(ulHtml)
+                # soupResult = BeautifulSoup(ulHtml.text, 'html.parser')
+                entrys = ulHtml.select_one('.GameScheduleList_link_name__xBm7W').text
                 print(entrys)
 
 
@@ -125,11 +126,11 @@ def init_items():
                 #     list_entry.append(entry)
                 # for result in Results:
                 #     list_result.append(result)
-                
+
                 # print(list_entry)
                 # print(list_result)
 
-                
+
 
 
 
@@ -148,7 +149,7 @@ def init_items():
     #     'matchResult': 0,
     # }
 
-    #     db.dbPlan.insert_one(doc) 
+    #     db.dbPlan.insert_one(doc)
         # print('완료!')
 
 

@@ -2,6 +2,8 @@
 //     sportlist();
 // });
 
+
+
 // 종목 선택 Dropdown (toggle을 이용해 펼치기 / 닫기)
 let dropdown = document.querySelector('.dropdown');
 dropdown.addEventListener('click', dropFunction);
@@ -39,7 +41,7 @@ function dropdownMaking() {
 
 function clickJoinButton(event) {
     let membershipModal = document.querySelector('#membership-modal');
-    event.stopPropagation();
+
     membershipModal.classList.toggle('is-active');
 }
 
@@ -47,7 +49,8 @@ let cancelButton = document.querySelector('.join-cancel');
 cancelButton.addEventListener('click', cancelJoin);
 
 function cancelJoin(event) {
-    event.stopPropagation();
+    let membershipModal = document.querySelector('#membership-modal');
+
     membershipModal.classList.remove('is-active');
 }
 
@@ -140,56 +143,53 @@ function logoutTry() {
         data: {},
         success: function(response) {
             if (response['result'] === 'success') {
-                alert('로그아웃 연결!');
+                let loginContainer = document.querySelector('#login-container');
+                loginContainer.innerHTML =
+                `
+                <div class="field">
+                            <p class="control has-icons-left has-icons-right">
+                            <input class="input" id="login-id" type="id" placeholder="ID">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            </p>
+                        </div>
+
+                        <div class="field">
+                            <p class="control has-icons-left">
+                            <input class="input" id="login-pw" type="password" placeholder="Password">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            </p>
+                        </div>
+                        <div class="login-buttons">
+                            <div class="field" style="float: right;">
+                                <p class="control">
+                                <button class="button is-success" id="login-button">
+                                    로그인
+                                </button>
+                                </p>
+                            </div>
+                            <div id="join-button" class="field" style="float: right; margin-right: 10px;">
+                                <p class="control">
+                                <button class="button is-success modal-button" data-target="membership-modal" aria-haspopup="true">
+                                    회원가입
+                                </button>
+                                </p>
+                            </div>
+                        </div>
+                `
+                window.location.reload();
             }
         }
     })
 }
 
 
-// function logoutTry() {
-//     let loginContainer = document.querySelector('#login-container');
-//     loginContainer.innerHTML =
-//     `
-//     <div class="field">
-//                 <p class="control has-icons-left has-icons-right">
-//                 <input class="input" id="login-id" type="id" placeholder="ID">
-//                 <span class="icon is-small is-left">
-//                     <i class="fas fa-user"></i>
-//                 </span>
-//                 <span class="icon is-small is-right">
-//                     <i class="fas fa-check"></i>
-//                 </span>
-//                 </p>
-//             </div>
-
-//             <div class="field">
-//                 <p class="control has-icons-left">
-//                 <input class="input" id="login-pw" type="password" placeholder="Password">
-//                 <span class="icon is-small is-left">
-//                     <i class="fas fa-lock"></i>
-//                 </span>
-//                 </p>
-//             </div>
-//             <div class="login-buttons">
-//                 <div class="field" style="float: right;">
-//                     <p class="control">
-//                     <button class="button is-success" id="login-button">
-//                         로그인
-//                     </button>
-//                     </p>
-//                 </div>
-//                 <div id="join-button" class="field" style="float: right; margin-right: 10px;">
-//                     <p class="control">
-//                     <button class="button is-success modal-button" data-target="membership-modal" aria-haspopup="true">
-//                         회원가입
-//                     </button>
-//                     </p>
-//                 </div>
-//             </div>
-//     `
-//     window.location.reload();
-// }
 
 
     //종목리스트 생성

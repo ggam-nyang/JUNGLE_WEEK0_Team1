@@ -1,5 +1,5 @@
 from flask import Flask, json, render_template, jsonify, request, url_for, session, redirect
-from jinja2 import Template
+# from jinja2 import Template
 
 app = Flask(__name__)
 
@@ -81,13 +81,14 @@ def loginCheck():
             return jsonify({'result': 'pwError'})
         else:
             session["userID"] = input_id
-            return redirect(url_for('home'))
+            return jsonify({'result': 'success', 'userName': session['userID']})
 
 
 @app.route('/logout', methods=['GET'])
 def logout():
     session.pop('userID')
-    return redirect(url_for('home'))
+    print(session)
+    return jsonify({'result': 'success'})
 
 
 ## 종목 리스트 가져오기

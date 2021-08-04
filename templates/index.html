@@ -24,7 +24,7 @@
     <div class="columns">
         <div class="column is-2">
             <div class="title" style="height: 200px; border: 1px black solid;">
-                {{sportlist}}
+                타이틀
             </div>
             <!-- 로그인 Form -->
             <div id="login-container" class="block" style="height: 150px; border: 1px black solid;">
@@ -115,6 +115,8 @@
                         {% for i in sportlist %}
                     <a href="#" class="dropdown-item" onclick="sportsChange('{{i}}')">
                         {{i}}
+                    </a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

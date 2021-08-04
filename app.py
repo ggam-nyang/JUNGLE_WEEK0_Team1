@@ -15,6 +15,7 @@ db = client.dbOlympic
 def home():
    return render_template('index.html')
 
+## 회원가입 체크
 @app.route('/join', methods=['POST'])
 def joinCheck():
     id_receive = request.form['id_give']
@@ -30,6 +31,23 @@ def joinCheck():
         return jsonify({'result': 'success'})
     else:
         return jsonify({'result': 'same'})
+
+## 로그인 체크
+@app.route('/login', methods=['POST'])
+def loginCheck():
+    input_id = request.form['login_id']
+    input_pw = request.form['login_pw']
+
+    is_id_in_db = db.users.find_one({'id': input_id})
+
+    if is_id_in_db == None:
+        return jsonify({'result': 'idError'})
+    else:
+        db.users.find({
+            'id': {}
+        })
+
+
 
 @app.route('/memo', methods=['GET'])
 def listing():

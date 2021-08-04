@@ -58,29 +58,50 @@ function postJoin() {
 let loginContainer = document.querySelector('#login-container');
 let loginButton = document.querySelector('#login-button');
 loginButton.addEventListener('click', loginTry);
-function loginTry(id) {
-    loginContainer.innerHTML =
-    `
-    <div class="title is-4" style="text-align: center;">
-                ㅇㅇㅇ님, 환영합니다.
-            </div>
-            <div class="login-buttons">
-                <div class="field" style="float: right;">
-                    <p class="control">
-                    <button class="button is-success" id="logout-button" onclick="logoutTry()">
-                        로그아웃
-                    </button>
-                    </p>
-                </div>
-                <div id="bookmark-button" class="field" style="float: right; margin-right: 10px;">
-                    <p class="control">
-                    <button class="button is-success">
-                        내 즐겨찾기
-                    </button>
-                    </p>
-                </div>
-            </div>
-    `
+function loginTry() {
+    let inputId = $('#login-id').val();
+    let inputPw = $('#login-pw').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/login',
+        data: {login_id: inputId, login_pw: inputPw},
+        success: function(response) {
+            if (response['result'] === 'success') {
+                loginContainer.innerHTML =
+                                            `
+                                            <div class="title is-4" style="text-align: center;">
+                                                        ㅇㅇㅇ님, 환영합니다.
+                                                    </div>
+                                                    <div class="login-buttons">
+                                                        <div class="field" style="float: right;">
+                                                            <p class="control">
+                                                            <button class="button is-success" id="logout-button" onclick="logoutTry()">
+                                                                로그아웃
+                                                            </button>
+                                                            </p>
+                                                        </div>
+                                                        <div id="bookmark-button" class="field" style="float: right; margin-right: 10px;">
+                                                            <p class="control">
+                                                            <button class="button is-success">
+                                                                내 즐겨찾기
+                                                            </button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                            `
+            }
+            else if (response['result'] === 'idError') {
+                alert('ID가 틀렸습니다.')
+            }
+            else if (response['result'] === 'pwError') {
+                alert('Pw가 틀렸습니다.')
+            }
+        }
+    })
+
+
+    
 }
 
 // 로그아웃 후 박스 변화

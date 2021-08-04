@@ -72,19 +72,47 @@ def logout():
 def makeSchedule():
     item_selected = request.form['item_give']
     item_schedule = list(db.dbPlan.find({'name': item_selected}, {'_id': 0}))
-    return jsonify({'result': 'success', 'schedule_give': item_schedule})
+    #북마크 리스트 리턴하기
+    bookmark_list = db.users.find_one({'id': session['userID']})['bookmark']
+    return jsonify({'result': 'success', 'schedule_give': item_schedule, 'bookmark': bookmark_list})
+
 
 ## 북마크 눌렀을 때, user db에 추가하는 기능
 @app.route('/addBookmark', methods=['POST'])
 def addBookmark():
     item_id = request.form['item_id_give']
-    print(item_id)
-    db.users.update_one(
-        {'id': session['userID']},
-        { '$push': { 'bookmark': item_id}}
-    )
+    is_bookmark_in_db = db.users.find_one({'id': session['userID'], 'bookmark': {'$in': [item_id]}})
+    print(is_bookmark_in_db)
+    if is_bookmark_in_db == None:
+        db.users.update_one(
+            {'id': session['userID']},
+            { '$push': { 'bookmark': item_id}}
+        )
+    else:
+        db.users.update_one(
+            {'id': session['userID']},
+            { '$pull': { 'bookmark': item_id}}
+        )
+
+
+
 
     return jsonify({'result': 'success', 'userID': session['userID']})
+
+
+@app.route('/bookmark', methods=['GET'])
+def showBookmark():
+    temp_list = []
+    bookmark_list = db.users.find_one({'id': session['userID']})['bookmark']
+    print(bookmark_list)
+    for mark in bookmark_list:
+        temp = db.dbPlan.find_one({'id': mark}, {'_id': 0})
+        temp_list.append(temp)
+
+
+
+    return jsonify({'result': 'success', 'bookmark_list': temp_list, 'myBookmark_list': bookmark_list})
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

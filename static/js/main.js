@@ -36,7 +36,10 @@ function sportsChange(item) {
                     let matchState = schedule[i]['matchState'];
                     let entry = schedule[i]['entry'];
                     let matchResult = schedule[i]['matchResult'];
+                    let id = schedule[i]['id'];
+                    let bookmarkList = response['bookmark'];
                     let devide = entry.length / matchResult.length // 선수 명단과 결과 내용 수가 다른 경우 판별을 위함
+
 
                     let re_entry = ''
                     let re_matchResult = ''
@@ -67,7 +70,7 @@ function sportsChange(item) {
                             re_matchResult += matchResult[k] + '<br>'
                         }
                     }
-                    makeScheduleDiv(date, time, title, matchState, re_entry, re_matchResult, id);
+                    makeScheduleDiv(date, time, title, matchState, re_entry, re_matchResult, id, bookmarkList);
                 }
             }
         }
@@ -77,13 +80,17 @@ function sportsChange(item) {
 
 
 // 일정 div를 만드는 함수
-function makeScheduleDiv(date, time, title, matchState, entry, matchResult, id) {
-    let temphtml =
-    `
-    <tr>
+function makeScheduleDiv(date, time, title, matchState, entry, matchResult, id, bookmarkList) {
+    let isBookmark = bookmarkList.includes(id);
+    let temphtml
+
+    if (isBookmark === true) {
+        temphtml =
+        `
+        <tr>
                         <th>
-                            <button id='${id}' {% if login == True %} onclick="addBookmark('${id}')" {% else %} onclick= "bookmarkNeedLogin()" {% endif %}>
-                                <i class="far fa-star"></i>
+                            <button id='${id}'  onclick="addBookmark('${id}')" >
+                                <i class=" fas fa-star"></i>
                             </button>
                         </th>
                         <th>${date} ${time}</abbr></th>
@@ -92,7 +99,25 @@ function makeScheduleDiv(date, time, title, matchState, entry, matchResult, id) 
                         <td>${entry}</td>
                         <td>${matchResult}</td>
                       </tr>
-    `
+        `
+    }   else {
+        temphtml =
+        `
+        <tr>
+                        <th>
+                            <button id='${id}'  onclick="addBookmark('${id}')" >
+                                <i class=" far fa-star"></i>
+                            </button>
+                        </th>
+                        <th>${date} ${time}</abbr></th>
+                        <td>${title}</td>
+                        <td>${matchState}</td>
+                        <td>${entry}</td>
+                        <td>${matchResult}</td>
+                      </tr>
+        `
+    }
+
     $('#schedule-table-body').append(temphtml);
 }
 
@@ -102,6 +127,8 @@ function makeScheduleDiv(date, time, title, matchState, entry, matchResult, id) 
 
 // 내 즐겨찾기에 추가하는 함수
 function addBookmark(item_id) {
+    let refernce_itemId = document.getElementById('select-item').textContent;
+
     $.ajax({
         type: 'POST',
         url: '/addBookmark',
@@ -110,21 +137,84 @@ function addBookmark(item_id) {
             if (response['result'] === 'success') {
                 let userID = response['userID'];
                 console.log(userID, item_id)
-
             }
         }
     })
+
+
+    if (refernce_itemId === '내 즐겨찾기') {
+        console.log('북마크다');
+        showMyBookmark();
+    }   else {
+        console.log('체인지');
+        sportsChange(refernce_itemId);
+    }
+
 }
 
-// 북마크 눌렀을 때 (로그인 X)
-function bookmarkNeedLogin() {
-
-}
 
 
 // Mypage 누르면 즐겨찾기 모아주기 함수
 function showMyBookmark() {
-    
+    document.getElementById('dropdown-main').textContent = '내 즐겨찾기'
+    document.getElementById('select-item').textContent = '내 즐겨찾기'
+    $('#schedule-table-body').empty();
+
+    $.ajax({
+        type: 'GET',
+        url: '/bookmark',
+        data: {},
+        success: function(response) {
+            if (response['result'] === 'success') {
+
+                let bookmarkList = response['bookmark_list']
+                console.log(bookmarkList)
+                for (let i = 0; i < bookmarkList.length; i++) {
+                    let date = bookmarkList[i]['date'];
+                    let time = bookmarkList[i]['time'];
+                    let title = bookmarkList[i]['title'];
+                    let matchState = bookmarkList[i]['matchState'];
+                    let entry = bookmarkList[i]['entry'];
+                    let matchResult = bookmarkList[i]['matchResult'];
+                    let myBookmarkList = response['myBookmark_list'];
+                    let id = bookmarkList[i]['id'];
+                    let devide = entry.length / matchResult.length // 선수 명단과 결과 내용 수가 다른 경우 판별을 위함
+
+
+                    let re_entry = ''
+                    let re_matchResult = ''
+                    if (devide != 1) {
+                        for(let j=0; j<entry.length; j++){
+                            if (j == entry.length - 1){
+                                re_entry += entry[j]
+                            } else if ((j+1)%devide == 0){
+                                re_entry += entry[j] + '<br>'
+                            } else {
+                                re_entry += entry[j] + '/'
+                            }
+                        }
+
+                    } else {
+                        for(let j=0; j<entry.length; j++){
+                            if (j == entry.length -1){
+                                re_entry += entry[j]
+                            } else {
+                                re_entry += entry[j] + '<br>'
+                            }
+                        }
+                    }
+                    for(let k=0; k<matchResult.length; k++){
+                        if (k == matchResult.length -1){
+                            re_matchResult += matchResult[k]
+                        } else {
+                            re_matchResult += matchResult[k] + '<br>'
+                        }
+                    }
+                    makeScheduleDiv(date, time, title, matchState, re_entry, re_matchResult, id, myBookmarkList);
+                }
+            }
+        }
+    })
 }
 
 // 종목 33개 드롭다운에 뿌려주기

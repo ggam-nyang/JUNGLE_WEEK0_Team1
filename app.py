@@ -13,7 +13,9 @@ db = client.dbOlympic
 ## HTML을 주는 부분
 @app.route('/')
 def home():
-   return render_template('index.html')
+    list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", "레슬링", "배구", "배드민턴", "복싱", "사격", "사이클", "서핑", "수영", "스케이딩 보딩", "스포츠 클라이밍", "승마",
+ "야구 / 소프트볼", "양궁", "역도", "요트", "유도", "육상", "조정", "체조", "축구", "카누", "탁구", "태권도", "테니스", "트라이애슬론", "펜싱", "하키", "핸드볼"]
+    return render_template('index.html',sportlist=list_OlympicItemKor)
 
 ## 회원가입 체크
 @app.route('/join', methods=['POST'])
@@ -48,6 +50,14 @@ def loginCheck():
         else:
             return jsonify({'result': 'success', 'userName': input_id})
 
+## 종목 리스트 가져오기
+@app.route('/sport', methods=['GET'])
+def sportlist():
+    list_OlympicItemKor = ["가라테", "골프", "근대5종", "농구", "럭비", "레슬링", "배구", "배드민턴", "복싱", "사격", "사이클", "서핑", "수영", "스케이딩 보딩", "스포츠 클라이밍", "승마",
+ "야구 / 소프트볼", "양궁", "역도", "요트", "유도", "육상", "조정", "체조", "축구", "카누", "탁구", "태권도", "테니스", "트라이애슬론", "펜싱", "하키", "핸드볼"]
+    # sportlist = list(db.plan.find({},{'_id':0,'name': 1}))
+
+    return jsonify({'result':'success','list':list_OlympicItemKor})
 
 @app.route('/memo', methods=['GET'])
 def listing():

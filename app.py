@@ -72,7 +72,6 @@ def logout():
 def makeSchedule():
     item_selected = request.form['item_give']
     item_schedule = list(db.dbPlan.find({'name': item_selected}, {'_id': 0}))
-    print(item_schedule)
     return jsonify({'result': 'success', 'schedule_give': item_schedule})
 
 ## 북마크 눌렀을 때, user db에 추가하는 기능

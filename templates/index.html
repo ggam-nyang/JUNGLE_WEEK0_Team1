@@ -103,16 +103,16 @@
             </div>
             <div class="dropdown">
                 <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu"  style="width: 300px;">
-                    <span>종목을 선택해주세요.</span>
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu"  style="width: 200px;">
+                    <span id="dropdown-main">종목을 선택해주세요.</span>
                     <span class="icon is-small">
                         <i class="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
                     </button>
                 </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu" style="width: 300px;">
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                    <a href="#" class="dropdown-item" onclick="sportsChange()">
+                    <a href="#" class="dropdown-item" onclick="sportsChange('축구')">
                         축구
                     </a>
                     <a class="dropdown-item">
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class="column">
-            <div class="title" style="height: 100px; border: 1px black solid; text-align: center; margin-bottom: 0.7rem;">
+            <div id="select-item" class="title" style="height: 100px; border: 1px black solid; text-align: center; margin-bottom: 0.7rem;">
                 선택한 종목
             </div>
 

@@ -10,8 +10,23 @@ function dropFunction(event) {
 
 
 // 종목 선택 시 우측 상단에 종목 명 표시
-function sportsChange() {
+function sportsChange(item) {
+    document.getElementById('dropdown-main').textContent = item
+    document.getElementById('select-item').textContent = item
+}
 
+// 종목 33개 드롭다운에 뿌려주기
+function dropdownMaking() {
+    $.ajax({
+        type: 'GET',
+        url: '/makeDropdown',
+        data: {},
+        success: function(response) {
+            if (response['result'] === 'success') {
+                alert('연결 성공!');
+            }
+        }
+    })
 }
 
 // 회원가입 버튼 클릭 시, 회원 가입 창 출력

@@ -10,6 +10,7 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.dbOlympic
 
+
 ## HTML을 주는 부분
 @app.route('/')
 def home():

@@ -38,15 +38,15 @@ def loginCheck():
     input_id = request.form['login_id']
     input_pw = request.form['login_pw']
 
-    is_id_in_db = db.users.find_one({'id': input_id})
+    is_id_in_db = db.users.find_one({'id': input_id}, {'_id': 0})
 
     if is_id_in_db == None:
         return jsonify({'result': 'idError'})
     else:
-        db.users.find({
-            'id': {}
-        })
-
+        if is_id_in_db['password'] != input_pw:
+            return jsonify({'result': 'pwError'})
+        else:
+            return jsonify({'result': 'success', 'userName': input_id})
 
 
 @app.route('/memo', methods=['GET'])

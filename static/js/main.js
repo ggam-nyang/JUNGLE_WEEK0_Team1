@@ -68,10 +68,11 @@ function loginTry() {
         data: {login_id: inputId, login_pw: inputPw},
         success: function(response) {
             if (response['result'] === 'success') {
+                userName = response['userName'];
                 loginContainer.innerHTML =
                                             `
                                             <div class="title is-4" style="text-align: center;">
-                                                        ㅇㅇㅇ님, 환영합니다.
+                                                        ${userName}님, 환영합니다.
                                                     </div>
                                                     <div class="login-buttons">
                                                         <div class="field" style="float: right;">
@@ -101,7 +102,6 @@ function loginTry() {
     })
 
 
-    
 }
 
 // 로그아웃 후 박스 변화
@@ -113,7 +113,6 @@ if (logoutButton) {
 }
 */
 function logoutTry() {
-    console.log('yas')
     let loginContainer = document.querySelector('#login-container');
     loginContainer.innerHTML =
     `
@@ -154,4 +153,5 @@ function logoutTry() {
                 </div>
             </div>
     `
+    window.location.reload();
 }

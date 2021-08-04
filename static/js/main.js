@@ -36,20 +36,24 @@ function sportsChange(item) {
                     let matchState = schedule[i]['matchState'];
                     let entry = schedule[i]['entry'];
                     let matchResult = schedule[i]['matchResult'];
-                    makeScheduleDiv(date, time, title, matchState, entry, matchResult);
+                    let id = schedule[i]['id'];
+                    console.log(id);
+                    makeScheduleDiv(date, time, title, matchState, entry, matchResult, id);
                 }
             }
         }
     })
 }
 
+
+
 // 일정 div를 만드는 함수
-function makeScheduleDiv(date, time, title, matchState, entry, matchResult) {
+function makeScheduleDiv(date, time, title, matchState, entry, matchResult, id) {
     let temphtml =
     `
     <tr>
                         <th>
-                            <button>
+                            <button id='${id}' {% if login == True %} onclick="addBookmark('${id}')" {% else %} onclick= "bookmarkNeedLogin()" {% endif %}>
                                 <i class="far fa-star"></i>
                             </button>
                         </th>
@@ -61,6 +65,37 @@ function makeScheduleDiv(date, time, title, matchState, entry, matchResult) {
                       </tr>
     `
     $('#schedule-table-body').append(temphtml);
+}
+
+
+
+
+
+// 내 즐겨찾기에 추가하는 함수
+function addBookmark(item_id) {
+    $.ajax({
+        type: 'POST',
+        url: '/addBookmark',
+        data: {item_id_give: item_id},
+        success: function(response) {
+            if (response['result'] === 'success') {
+                let userID = response['userID'];
+                console.log(userID, item_id)
+
+            }
+        }
+    })
+}
+
+// 북마크 눌렀을 때 (로그인 X)
+function bookmarkNeedLogin() {
+
+}
+
+
+// Mypage 누르면 즐겨찾기 모아주기 함수
+function showMyBookmark() {
+    
 }
 
 // 종목 33개 드롭다운에 뿌려주기

@@ -150,7 +150,7 @@
             </div>
 
             <div class="block" style="height: 600px; border: 1px black solid;">
-                <table id="schedule-table" class="table">
+                <table id="schedule-table" class="table is-fullwidth">
                     <thead>
                       <tr>
                         <th><abbr title="My">즐겨찾기</abbr></th>
@@ -162,6 +162,18 @@
                       </tr>
                     </thead>
                     <tbody id="schedule-table-body">
+                        <tr>
+                            <th>
+                                <button  {% if login == True %} onclick="addBookmark('GLF0')" {% else %} onclick= "bookmarkNeedLogin()" {% endif %}>
+                                    <i class="far fa-star"></i>
+                                </button>
+                            </th>
+                            <th>${date} ${time}</th>
+                            <td>${title}</td>
+                            <td>${matchState}</td>
+                            <td>${entry}</td>
+                            <td>${matchResult}</td>
+                          </tr>
                     </tbody>
                   </table>
             </div>

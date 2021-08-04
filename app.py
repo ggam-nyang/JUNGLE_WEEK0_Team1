@@ -1,3 +1,4 @@
+from types import MethodDescriptorType
 from flask import Flask, json, render_template, jsonify, request, url_for, session, redirect
 from jinja2 import Template
 
@@ -36,7 +37,7 @@ def joinCheck():
 
     is_id_in_db = db.users.find_one({'id': id_receive})
     if is_id_in_db == None:
-        new_user = {'id': id_receive, 'password': pw_receive}
+        new_user = {'id': id_receive, 'password': pw_receive, 'bookmark': []}
         db.users.insert_one(new_user)
         return jsonify({'result': 'success'})
     else:
@@ -73,6 +74,18 @@ def makeSchedule():
     item_schedule = list(db.dbPlan.find({'name': item_selected}, {'_id': 0}))
     print(item_schedule)
     return jsonify({'result': 'success', 'schedule_give': item_schedule})
+
+## 북마크 눌렀을 때, user db에 추가하는 기능
+@app.route('/addBookmark', methods=['POST'])
+def addBookmark():
+    item_id = request.form['item_id_give']
+    print(item_id)
+    db.users.update_one(
+        {'id': session['userID']},
+        { '$push': { 'bookmark': item_id}}
+    )
+
+    return jsonify({'result': 'success', 'userID': session['userID']})
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

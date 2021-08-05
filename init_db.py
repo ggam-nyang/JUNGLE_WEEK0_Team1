@@ -71,7 +71,7 @@ def init_items():
                     list_entry.append(entry.text)
                 for result in Results:
                     list_result.append(result.text)
-                
+
                 print(list_entry)
                 print(list_result)
 
@@ -94,6 +94,6 @@ def insert_all():
     db.dbPlan.drop()
 
 
-insert_all()
-init_items()
+# insert_all()
+# init_items()
 

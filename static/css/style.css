@@ -2,3 +2,9 @@
     padding: 30px;
     border: 4px solid white;
 }
+
+#title {
+    height: 200px;
+    border: 1px black solid;
+    background-image: url="{{ url_for('static', filename='Tokyo_2020_Olympics_logo.png') }}";
+}

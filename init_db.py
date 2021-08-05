@@ -13,7 +13,7 @@ options = webdriver.ChromeOptions()
 # 창 숨기는 옵션 추가
 options.add_argument("headless")
 
-driver = webdriver.Chrome('C:\chromedriver_win32\chromedriver', options=options)
+driver = webdriver.Chrome('D:\Project\chromedriver_win32\chromedriver', options=options)
 
 list_OlympicItem = ["KTE", "GLF", "MPN", "BSK", "RUG", "WRE", "VOL", "BDM", "BOX", "SHO", "CYC", "SRF", "AQU", "SKB", "CLB", "EQU",
  "BSB", "ARC", "WLF", "SAL", "JUD", "ATH", "ROW", "GYM", "FBL", "CAS", "TTE", "TKW", "TEN", "TRI", "FEN", "HOC", "HBL"]
@@ -32,9 +32,14 @@ def init_items():
         id_index = 0
 
         driver.get('https://m.sports.naver.com/tokyo2020/schedule/index?type=discipline&date=&disciplineId=' + list_OlympicItem[i] + '&isKorean=Y')
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(2)
 
         divs = driver.find_elements_by_class_name("Schedule_game_schedule__1k6hJ")
+
+        if divs == []:
+            print("데이터가 없습니다")
+            continue
+            
 
 
         for j in range(len(divs)):

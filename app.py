@@ -1,4 +1,3 @@
-from types import MethodDescriptorType
 from flask import Flask, json, render_template, jsonify, request, url_for, session, redirect
 from jinja2 import Template
 
@@ -7,6 +6,9 @@ app = Flask(__name__)
 import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+from init_db import insert_all, init_items
+
+# mongodb://jungle:jungle@3.34.49.60
 client = MongoClient('localhost', 27017)
 db = client.dbOlympic
 

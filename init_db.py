@@ -60,7 +60,7 @@ def init_items():
                 print(times[k].text)
                 print(titles[k].text)
                 print(matchStates[k].text)
-                
+
                 ulHtml = str(matchResults[k])
 
                 soupResult = BeautifulSoup(ulHtml, 'html.parser')
@@ -96,7 +96,7 @@ def init_items():
 
 
 def insert_all():
-    db.dbPlan.drop() 
+    db.dbPlan.drop()
 
 
 insert_all()

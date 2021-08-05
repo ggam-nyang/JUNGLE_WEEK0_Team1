@@ -148,11 +148,23 @@ function addBookmark(item_id) {
         setTimeout(function() {
             showMyBookmark();
         }, 500);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> fe7e70bc83db67a5b863845b3696b3ac41bd6d7b
     }   else {
         console.log('체인지');
         sportsChange(refernce_itemId);
     }
+    //  if (refernce_itemId === '내 즐겨찾기') {
+    //     console.log('북마크다');
+    //     showMyBookmark();
+
+    // }   else {
+    //     console.log('체인지');
+    //     sportsChange(refernce_itemId);
+    // }
 
 }
 
@@ -266,6 +278,7 @@ function postJoin() {
         success: function(response) {
             if (response['result'] === 'success') {
                 alert('가입 완료!');
+                window.location.reload();
             }
             else if (response['result'] === 'same') {
                 alert('중복된 아이디 입니다.');
@@ -315,6 +328,7 @@ function loginTry() {
                                                         </div>
                                                     </div>
                                             `
+                window.location.reload();
             }
             else if (response['result'] === 'idError') {
                 alert('ID가 틀렸습니다.')

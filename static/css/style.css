@@ -7,6 +7,6 @@
     height: 200px;
     border: 1px black solid;
     background-image: url(../Tokyo_2020_Olympics_logo.png);
-    background-position: center center;
+    background-position: center top;
     background-size: cover;
 }

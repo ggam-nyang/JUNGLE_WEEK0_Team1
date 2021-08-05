@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 from init_db import insert_all, init_items
-
+from operator import itemgetter
 # mongodb://jungle:jungle@3.34.49.60
 client = MongoClient('localhost', 27017)
 db = client.dbOlympic
@@ -158,6 +158,7 @@ def logout():
 def makeSchedule():
     item_selected = request.form['item_give']
     item_schedule = list(db.dbPlan.find({'name': item_selected}, {'_id': 0}))
+    # item_schedule = sorted(item_schedule, key=itemgetter('date'))
     #북마크 리스트 리턴하기
     bookmark_list = db.users.find_one({'id': session['userID']})['bookmark']
     return jsonify({'result': 'success', 'schedule_give': item_schedule, 'bookmark': bookmark_list})
@@ -200,6 +201,6 @@ def showBookmark():
 
 
 if __name__ == '__main__':
-    # insert_all()
-    # init_items()
+    insert_all()
+    init_items()
     app.run('0.0.0.0',port=5000,debug=False)

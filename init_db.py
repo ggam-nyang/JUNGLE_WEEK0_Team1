@@ -12,8 +12,8 @@ db = client.dbOlympic
 options = webdriver.ChromeOptions()
 # 창 숨기는 옵션 추가
 options.add_argument("headless")
-
-driver = webdriver.Chrome('D:\Project\chromedriver_win32\chromedriver', options=options)
+# /home/ubuntu/jungle/chromedriver_linux64/chromedriver
+driver = webdriver.Chrome('C:\Users\이재윤\Desktop\WEEK0_Team1/chromedriver', options=options)
 
 list_OlympicItem = ["KTE", "GLF", "MPN", "BSK", "RUG", "WRE", "VOL", "BDM", "BOX", "SHO", "CYC", "SRF", "AQU", "SKB", "CLB", "EQU",
  "BSB", "ARC", "WLF", "SAL", "JUD", "ATH", "ROW", "GYM", "FBL", "CAS", "TTE", "TKW", "TEN", "TRI", "FEN", "HOC", "HBL"]

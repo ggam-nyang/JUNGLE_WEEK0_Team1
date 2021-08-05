@@ -148,11 +148,6 @@ function addBookmark(item_id) {
         setTimeout(function() {
             showMyBookmark();
         }, 500);
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> fe7e70bc83db67a5b863845b3696b3ac41bd6d7b
     }   else {
         console.log('체인지');
         sportsChange(refernce_itemId);

@@ -143,25 +143,16 @@ function addBookmark(item_id) {
 
     
 
-    // if (refernce_itemId === '내 즐겨찾기') {
-    //     console.log('북마크다');
-    //     setTimeout(function() {
-    //         showMyBookmark();
-    //     }, 500);
-        
-    // }   else {
-    //     console.log('체인지');
-    //     sportsChange(refernce_itemId);
-    // }
-     if (refernce_itemId === '내 즐겨찾기') {
+    if (refernce_itemId === '내 즐겨찾기') {
         console.log('북마크다');
-        showMyBookmark();
+        setTimeout(function() {
+            showMyBookmark();
+        }, 500);
         
     }   else {
         console.log('체인지');
         sportsChange(refernce_itemId);
     }
-
 
 }
 

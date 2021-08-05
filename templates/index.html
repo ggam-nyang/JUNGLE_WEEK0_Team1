@@ -23,8 +23,9 @@
 <body>
     <div class="columns">
         <div class="column is-2">
-            <img id="title" class="title" src="{{ url_for('static', filename='Tokyo_2020_Olympics_logo.png') }}"/>
-
+            <div id="title" class="title" style="height: 200px; border: 1px black solid;">
+                타이틀
+            </div>
             <!-- 로그인 Form -->
             {% if login == False %}
             <div id="login-container" class="block" style="height: 150px; border: 1px black solid;">
